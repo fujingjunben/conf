@@ -1,26 +1,17 @@
-" Vundle
+" vim-plug
 set nocompatible
 filetype off
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-    " alternativily, pass a path where Vundle should install plugins
-    " call vundle#begin("~/som/path/here")
-
-    " let Vundle manage Vundle, required
-    Plugin 'VundleVim/Vundle.vim'
-
-    " The following are example of diferent formats supported.
-    " Keep Plugin commands between vundle@begin/end
-    " Plugin on GitHub repo
-    Plugin 'scrooloose/nerdtree'
-    Plugin 'bling/vim-airline'
-    Plugin 'altercation/vim-colors-solarized'
-    Plugin 'moll/vim-node'
-    Plugin 'flazz/vim-colorschemes'
-    Plugin 'klen/python-mode'
+call plug#begin()
+    Plug 'scrooloose/nerdtree'
+    Plug 'bling/vim-airline'
+    Plug 'altercation/vim-colors-solarized'
+    Plug 'moll/vim-node'
+    Plug 'flazz/vim-colorschemes'
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    "Plugin 'klen/python-mode'
     
-call vundle#end()
+call plug#end()
 filetype plugin indent on
 " To ignore plugin indent changes, instead use:
 " filetype plugin on
@@ -42,7 +33,7 @@ set encoding=utf-8
 set fileencodings=utf-8,gbk,gb18030,gk2312
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
-language messages zh_CN.utf-8
+"language messages zh_CN.utf-8
 set showmatch
 set incsearch
 set clipboard+=unnamed
@@ -55,4 +46,5 @@ else
     set background=dark
 endif
 
+set guifont=Source\ Code\ Pro\ 12
 

@@ -16,6 +16,7 @@ call plug#begin()
     Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
     Plug 'rust-lang/rust.vim'
     Plug 'majutsushi/tagbar'
+    Plug 'bagrat/vim-buffet'
     
 call plug#end()
 filetype plugin indent on
@@ -74,3 +75,10 @@ let g:airline_theme='onedark'
 set guifont=Ubuntu\ Mono
 let g:rustfmt_autosave=1
 nmap <F8> :TagbarToggle<CR>
+
+noremap <Tab> :bn<CR>
+noremap <S-Tab> :bp<CR>
+noremap <Leader><Tab> :Bw<CR>
+noremap <Leader><S-Tab> :Bw!<CR>
+noremap <C-t> :tabnew split<CR>
+let g:buffet_show_index = 1

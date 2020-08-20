@@ -1,0 +1,9 @@
+[Unit]
+Description=clash systemd service.
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/clash -d /etc/clash
+
+[Install]
+WantedBy=multi-user.target

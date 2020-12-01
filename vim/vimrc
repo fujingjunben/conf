@@ -14,7 +14,7 @@ call plug#begin()
     "Plug 'natebosch/vim-lsc'
     "Plug 'natebosch/vim-lsc-dart'
     "Plug 'thosakwe/vim-flutter'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    "Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'honza/vim-snippets'
     Plug 'tomasr/molokai'
     Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }

@@ -4,7 +4,7 @@ filetype off
 " set the runtime path to include Vundle and initialize
 call plug#begin()
     Plug 'scrooloose/nerdtree'
-    Plug 'bling/vim-airline'
+    Plug 'itchyny/lightline.vim'
     Plug 'altercation/vim-colors-solarized'
     Plug 'rakr/vim-one'
     Plug 'joshdick/onedark.vim'
@@ -58,8 +58,6 @@ syntax enable
 "colorscheme molokai
 
 let g:one_allow_italics = 1
-"let g:airline_theme='onedark'
-
 
 set guifont=Ubuntu\ Mono
 let g:rustfmt_autosave=1

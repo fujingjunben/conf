@@ -243,8 +243,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 let g:LanguageClient_serverCommands = {
             \ 'rust': ['rust-analyzer'],
-	    \ 'cpp' : ['clangd'],
-	    \ 'c' : ['clangd'],
+	    \ 'cpp' : ['clangd', '-j=5', '-completion-style=detailed', '-background-index', '-all-scopes-completion', '--suggest-missing-includes'],
+	    \ 'c' : ['clangd', '-j=5', '-completion-style=detailed', '-background-index', '-all-scopes-completion', '--suggest-missing-includes'],
             \ }
 
 nmap <F5> <Plug>(lcn-menu)

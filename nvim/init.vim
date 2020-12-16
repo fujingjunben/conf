@@ -5,6 +5,10 @@ set nu
 " enable saving of tab titles for sessions
 set sessionoptions+=tabpages,globals
 
+set tabstop=8
+set softtabstop=8
+set autoindent
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin
@@ -14,10 +18,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'voldikss/vim-floaterm'
 
 " Collection of common configurations for the Nvim LSP client
-Plug 'neovim/nvim-lspconfig'
+"Plug 'neovim/nvim-lspconfig'
 
 " Extensions to built-in LSP, for example, providing type inlay hints
-Plug 'tjdevries/lsp_extensions.nvim'
+"Plug 'tjdevries/lsp_extensions.nvim'
 
 " Autocompletion framework for built-in LSP
 Plug 'nvim-lua/completion-nvim'
@@ -48,6 +52,18 @@ Plug 'junegunn/fzf', {'do': './install --bin'}
 Plug 'junegunn/fzf.vim'
 
 Plug 'camspiers/lens.vim'
+
+Plug 'autozimu/LanguageClient-neovim', {
+			\ 'branch': 'next',
+			\ 'do': 'bash install.sh',
+			\}
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 
 call plug#end()
@@ -102,12 +118,6 @@ let g:rnvimr_layout = {
             \ 'style': 'minimal'
             \ }
 
-""""""""""""""""""""""""""""""
-" VIM-FLOATERM
-""""""""""""""""""""""""""""""
-
-let g:floaterm_open_command = 'tabe'
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
                                   " VIM FUNCTIONS
@@ -133,6 +143,17 @@ function! TwiddleCase(str)
   endif
   return result
 endfunction
+
+""""""""""""""""""""""""""""""
+" VIM-FLOATERM
+""""""""""""""""""""""""""""""
+
+let g:floaterm_open_command = 'tabe'
+
+"""""""""""""""""""""""""""""
+" DEOPLETE
+"""""""""""""""""""""""""""""
+let g:deoplete#enable_at_startup = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -192,26 +213,41 @@ autocmd BufEnter * lua require'completion'.on_attach()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-lua <<EOF
-require'lspconfig'.rust_analyzer.setup{
-    settings = {
-      ["rust-analyzer"] = {}
-    }
-}
-EOF
+"lua <<EOF
+"require'lspconfig'.rust_analyzer.setup{
+"    settings = {
+"      ["rust-analyzer"] = {}
+"    }
+"}
+"EOF
 
 " Code navigation shortcuts
 " as found in :help lsp
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+"nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+"nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+"nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+"nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+"nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+"nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+"nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+"nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+"nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 " rust-analyzer does not yet support goto declaration
 " re-mapped `gd` to definition
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+"nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 "nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LanguageClient
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:LanguageClient_serverCommands = {
+            \ 'rust': ['rust-analyzer'],
+	    \ 'cpp' : ['clangd'],
+	    \ 'c' : ['clangd'],
+            \ }
+
+nmap <F5> <Plug>(lcn-menu)
+nmap <silent>K <Plug>(lcn-hover)
+nmap <silent> gd <Plug>(lcn-definition)
+nmap <silent> <F2> <Plug>(lcn-rename)

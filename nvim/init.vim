@@ -24,7 +24,7 @@ Plug 'voldikss/vim-floaterm'
 "Plug 'tjdevries/lsp_extensions.nvim'
 
 " Autocompletion framework for built-in LSP
-Plug 'nvim-lua/completion-nvim'
+"Plug 'nvim-lua/completion-nvim'
 Plug 'rust-lang/rust.vim'
 
 " save session
@@ -64,6 +64,8 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install'}
 
 
 call plug#end()
@@ -200,14 +202,14 @@ let g:rustfmt_autosave = 1
 " menuone: popup even when there's only one match
 " noinsert: Do not insert text until a selection is made
 " noselect: Do not select, force user to select one from the menu
-set completeopt=menuone,noinsert,noselect
+"set completeopt=menuone,noinsert,noselect
 
 " Avoid showing extra messages when using completion
-set shortmess+=c
+"set shortmess+=c
 
 " set up completion-nvim for all buffers instead of only being used when lsp
 " is enabled
-autocmd BufEnter * lua require'completion'.on_attach()
+"autocmd BufEnter * lua require'completion'.on_attach()
 
 " use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
